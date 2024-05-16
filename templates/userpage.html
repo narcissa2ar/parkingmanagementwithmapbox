@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Mapbox GL JS Example</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 70%; }
+        #panel { position: absolute; top: 0; right: 0; bottom: 0; width: 30%; background-color: #f8f8f8; overflow-y: auto; padding: 10px; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<div id='panel'></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicGpzcHMiLCJhIjoiY2x0ZDM3dm9vMDI4YzJqbW9udWEybnE5cyJ9.i-L_u13rzXtnvY11qOP2fA';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [{{ mean_longitude }}, {{ mean_latitude }}],
+        zoom: 10
+    });
+
+    var userLocation;
+
+    // Ask for user location permission and show on map
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            userLocation = [position.coords.longitude, position.coords.latitude];
+            map.setCenter(userLocation);
+            map.setZoom(12);
+
+            // Add a marker for user location
+            var userMarker = new mapboxgl.Marker()
+                .setLngLat(userLocation)
+                .addTo(map);
+            
+            // Add a popup for user location marker
+            var userPopup = new mapboxgl.Popup()
+                .setLngLat(userLocation)
+                .setHTML('<p>Your Location</p>')
+                .addTo(map);
+        }, function(error) {
+            console.error('Error getting user location:', error);
+        });
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+
+    // Add markers for each location
+    {% for loc in locations %}
+    var popup{{ loop.index }} = new mapboxgl.Popup().setHTML(
+        '<div>' +
+        '<p><strong>Location Name:</strong> {{ loc[3] }}</p>' +
+        '<p><strong>Price:</strong> {{ loc[5] }}</p>' +
+        '<p><strong>Available Slots:</strong> {{ loc[6] }}</p>' +
+        '<form action="/payment" method="POST">' +
+        '<input type="hidden" name="location_name" value="{{ loc[3] }}">' +
+        '<input type="submit" value="Book Now">' +
+        '</form>' +
+        '</div>'
+    );
+    var marker{{ loop.index }} = new mapboxgl.Marker()
+        .setLngLat([{{ loc[2] }}, {{ loc[1] }}])
+        .setPopup(popup{{ loop.index }})
+        .addTo(map);
+    marker{{ loop.index }}.getElement().addEventListener('click', function() {
+        getRoute(userLocation, [{{ loc[2] }}, {{ loc[1] }}]);
+    });
+    {% endfor %}
+
+    function getRoute(origin, destination) {
+        var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + origin[0] + ',' + origin[1] + ';' + destination[0] + ',' + destination[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+        
+        // Request directions from Mapbox Directions API
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            var instructions = data.routes[0].legs[0].steps.map(step => step.maneuver.instruction);
+            var distance = (data.routes[0].distance / 1000).toFixed(2); // distance in kilometers
+            var duration = (data.routes[0].duration / 60).toFixed(1); // duration in minutes
+
+            // Display instructions in the panel
+            var panel = document.getElementById('panel');
+            panel.innerHTML = '<h3>Route Info</h3><p>Distance: ' + distance + ' km</p><p>Duration: ' + duration + ' minutes</p><ol>' + instructions.map(instruction => '<li>' + instruction + '</li>').join('') + '</ol>';
+
+            // Add route line to map
+            var route = data.routes[0].geometry;
+            if (map.getSource('route')) {
+                map.getSource('route').setData({
+                    type: 'Feature',
+                    properties: {},
+                    geometry: route
+                });
+            } else {
+                map.addLayer({
+                    id: 'route',
+                    type: 'line',
+                    source: {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            properties: {},
+                            geometry: route
+                        }
+                    },
+                    layout: {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    paint: {
+                        'line-color': 'red',
+                        'line-width': 5
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching directions:', error);
+        });
+    }
+</script>
+
+</body>
+</html>

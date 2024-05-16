@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <style>
+    
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+    }
+
+    #sidebar {
+        background-color:#dbe4f0;
+        color: #fff;
+        padding: 16px;
+        width: 200px;
+    }
+
+    #sidebar a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 8px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+    }
+
+    #sidebar a:hover {
+        background-color: #555;
+    }
+
+    #content {
+        flex: 1;
+        padding: 16px;
+    }
+
+    #table-container {
+        display: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #333;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    </style>
+    <script>
+        function showTable() {
+            document.getElementById("table-container").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar">
+            <a href="#" onclick="showTable()">Booking Information</a>
+            <a href="/">Logout</a>
+        </div>
+        <div id="content">
+            <div id="table-container">
+                <h2>Booking Information</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Email</th>
+                            <th>Time In</th>
+                            <th>Time Out</th>
+                            <th>Date In</th>
+                            <th>Date Out</th>
+                            <th>Payment Amount</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking[0] }}</td>
+                            <td>{{ booking[1] }}</td>
+                            <td>{{ booking[2] }}</td>
+                            <td>{{ booking[3] }}</td>
+                            <td>{{ booking[4] }}</td>
+                            <td>{{ booking[5] }}</td>
+                            <td>{{ booking[9] }}</td> 
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

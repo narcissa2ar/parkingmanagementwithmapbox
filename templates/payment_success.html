@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #333;
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd; /* Add border to separate each row */
+            padding-bottom: 10px; /* Add padding to space out the content */
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .logout-button {
+            background-color: #f44336;
+        }
+
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Booking Details</h1>
+        <div>
+            <button class="logout-button" onclick="location.href='/logout';">Log Out</button>
+            <button onclick="location.href='/map';">Go to Map</button>
+        </div>
+    </div>
+    <div class="container">
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <p>Email: {{ booking[1] }}</p>
+                    <p>Time In: {{ booking[2] }}</p>
+                    <p>Time Out: {{ booking[3] }}</p>
+                    <p>Date In: {{ booking[4] }}</p>
+                    <p>Date Out: {{ booking[5] }}</p>
+                    <p>Booking ID: {{ booking[0] }}</p>
+                    <p>Location Name: {{ booking[7] }}</p>
+                    <p>Payment Amount: {{ booking[9] }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

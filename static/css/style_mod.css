@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 200px 1fr 200px; /* Added a third column for the toggling side panel */
+}
+
+#map {
+  grid-column: 2 / span 1;
+  position: relative;
+  height: 100vh;
+}
+
+.panel {
+  background-color: #f2f2f2;
+  padding: 10px;
+  width: 100px; /* Set a specific width */
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigation a {
+  margin-bottom: 5px;
+  padding: 5px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%; /* Make the buttons take the full width */
+}
+
+.navigation a:hover {
+  background-color: #ddd;
+}
+
+.marker {
+  background-image: url('https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Styling for the toggling side panel */
+.toggling-panel {
+  grid-column: 3 / span 1;
+  background-color: #f0f0f0;
+  padding: 20px;
+  display: none; /* Initially hidden */
+}
+
+.toggle-button {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+}
+can you add body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+.container {
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-top: 0;
+  text-align: center;
+  color: #333333;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555555;
+}
+
+input[type="time"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+#totalAmount {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.book-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}

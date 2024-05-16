@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake PayPal Payment</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1>Fake PayPal Payment</h1>
+    <p>Please confirm the payment details:</p>
+    <ul>
+        <li>Booking ID: {{ booking.id }}</li>
+        <li>Email: {{ booking.email }}</li>
+        <li>Time In: {{ booking.time_in }}</li>
+        <li>Time Out: {{ booking.time_out }}</li>
+        <li>Date In: {{ booking.date_in }}</li>
+        <li>Date Out: {{ booking.date_out }}</li>
+        <li>Location Name: {{ booking.location_name }}</li>
+        <li>Payment Amount: {{ booking.payment_amount }} {{ booking.currency }}</li>
+    </ul>
+    <form method="post">
+        <button type="submit">Confirm Payment</button>
+    </form>
+</body>
+</html>

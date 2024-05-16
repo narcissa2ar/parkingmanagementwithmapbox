@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parking System - Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      #login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+      }
+
+      #user-login,
+      #admin-login {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+
+      #user-options,
+      #admin-options {
+        margin-top: 10px;
+      }
+
+      #user-options a,
+      #admin-options button {
+        display: block;
+        margin-top: 5px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #user-options a:hover,
+      #admin-options button:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Parking System</h1>
+    </header>
+
+    <section id="login">
+      <div id="user-login">
+        <h2>User Login</h2>
+        <button onclick="showUserOptions()">Login</button>
+        <div id="user-options" style="display: none">
+          <a href="/registerUser">Register</a>
+          <a href="/loginUser">Login</a>
+        </div>
+      </div>
+      <div id="admin-login">
+        <h2>Admin Login</h2>
+        <button onclick="showAdminOptions()">Login</button>
+        <div id="admin-options" style="display: none">
+          <button onclick="window.location.href = '/loginM';">
+            Parking Lot Manager
+          </button>
+          <button onclick="window.location.href = '/adminLogin';">
+            Parking Lot Administrator
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function showUserOptions() {
+        var userOptions = document.getElementById("user-options");
+        userOptions.style.display = "block";
+      }
+
+      function showAdminOptions() {
+        var adminOptions = document.getElementById("admin-options");
+        adminOptions.style.display = "block";
+      }
+
+      function showManagerOptions() {
+        alert("Redirecting to Parking Lot Manager login...");
+      }
+
+      function showAdministratorOptions() {
+        alert("Redirecting to Parking Lot Administrator login...");
+      }
+    </script>
+  </body>
+</html>
